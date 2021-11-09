@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Box, Input, Text, Button, ChakraProvider } from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import useArray from "./hooks/useArray";
+import Form from "./pages";
 
 function App() {
+  const [num, setNum] = useState<number>(0);
+  const ref = useRef<HTMLInputElement>(null);
+  const { array, remove, filter, push } = useArray([
+    123, 1234, 3, 64, 12, 7, 46, 85,
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Box>
+        <Text>{JSON.stringify(array)}</Text>
+        <Input
+          value={num}
+          onChange={(e) => setNum(Number(e.target.value))}
+          type="number"
+        />
+        <Input type="string" ref={ref} />
+        <Button onClick={() => (num ? push(num) : "")}>PUSH</Button>
+        <Button onClick={() => (num ? remove(Number(num) - 1) : "")}>
+          REMOVE
+        </Button>
+        <Button onClick={() => (num ? filter((item) => item > 20) : "")}>
+          Filter
+        </Button>
+      </Box>
+      <Form />
+    </ChakraProvider>
   );
 }
 
