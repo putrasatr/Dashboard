@@ -34,19 +34,19 @@ class Circle {
     return home;
   }
 }
-const circleProps = new Circle();
-const fn = (props: SomeObject): string | boolean => {
+export const circleProps = new Circle();
+export const fn = (props: SomeObject): string | boolean => {
   return props(23);
 };
 
 function minimumLength<Type extends { length: number }>(
-  [obj]: [Type],
+  obj: Type,
   minimum: number
-): Type {
+): string {
   if (obj.length >= minimum) {
-    return obj["asd"] = asd;
+    return "G";
   } else {
-    return { length: minimum };
+    return "d";
   }
 }
-const arr = minimumLength([1, 2, 3], 6);
+export const arr = minimumLength([1, 2, 3], 6).length;
